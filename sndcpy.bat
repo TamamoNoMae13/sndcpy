@@ -1,6 +1,6 @@
 @echo off
 if not defined ADB set ADB=adb
-if not defined VLC set VLC="C:\Program Files\VideoLAN\VLC\vlc.exe"
+if not defined FFPLAY set FFPLAY="ffplay.exe"
 if not defined SNDCPY_APK set SNDCPY_APK=sndcpy.apk
 if not defined SNDCPY_PORT set SNDCPY_PORT=28200
 
@@ -24,7 +24,7 @@ if not "%1"=="" (
 timeout 2
 
 echo Playing audio...
-%VLC% -Idummy --demux rawaud --network-caching=0 --play-and-exit tcp://localhost:%SNDCPY_PORT%
+%FFPLAY% -hide_banner -loglevel fatal -nodisp -f s16le -probesize 32 -ac 2 -ar 48000 -acodec pcm_s16le tcp://localhost:%SNDCPY_PORT%
 goto :EOF
 
 :error
